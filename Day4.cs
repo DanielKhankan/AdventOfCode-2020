@@ -48,8 +48,8 @@ namespace AdventOfCode
                 return number >= lowerLimit && number <= upperLimit;
             }
 
-            var passwords = Day4Parse();
-            var counter = passwords.Count(password => requiredFields.TrueForAll(x => password.ContainsKey(x.Item1) && x.Item2(password[x.Item1])));
+            var passports = Day4Parse();
+            var counter = passports.Count(password => requiredFields.TrueForAll(x => password.ContainsKey(x.Item1) && x.Item2(password[x.Item1])));
             return counter;
         }
 

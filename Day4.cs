@@ -14,8 +14,8 @@ namespace AdventOfCode
         {
             var requiredFields = new List<string> {"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"};
 
-            var passwords = Day4Parse();
-            var counter = (passwords.Where(password => requiredFields.TrueForAll(password.ContainsKey))).Count();
+            var passports = Day4Parse();
+            var counter = (passports.Where(password => requiredFields.TrueForAll(password.ContainsKey))).Count();
             return counter;
         }
 
@@ -57,12 +57,12 @@ namespace AdventOfCode
         {
             var wholeFile = File.ReadAllText(Path.Combine(Program.InputsFolder, "Day4.txt"));
 
-            var passwords = wholeFile.Split("\r\n\r\n");
+            var passports = wholeFile.Split("\r\n\r\n");
 
-            foreach (var password in passwords)
+            foreach (var passport in passports)
             {
                 var nameValueCollection = new Dictionary<string, string>();
-                foreach (var field in password.Split( new char[] {' ', '\r'}))
+                foreach (var field in passport.Split( new char[] {' ', '\r'}))
                 {
                     var fieldNameValue = field.Split(":");
                     nameValueCollection.Add(fieldNameValue[0].Trim(), fieldNameValue[1].Trim());

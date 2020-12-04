@@ -1,7 +1,6 @@
 ﻿using System;
-using AdventOfCode;
 
-namespace ConsoleApp1 {
+namespace AdventOfCode {
 
     public static class Program
     {

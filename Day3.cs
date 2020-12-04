@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace ConsoleApp1 {
+namespace AdventOfCode {
     internal static class Day3 {
 
         // 171

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace ConsoleApp1 {
+namespace AdventOfCode {
     internal static class IEnumerableExtensions
     {
         internal static IEnumerable<(T1, T2)> Cartesian<T1, T2>(this IEnumerable<T1> list1, IEnumerable<T2> list2)

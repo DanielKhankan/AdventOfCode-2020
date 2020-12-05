@@ -17,20 +17,8 @@ namespace AdventOfCode {
             var allSeatIds = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day5.txt")).Select(GetSeatId).ToList();
             allSeatIds.Sort();
 
-            var currentSeatId = allSeatIds[0];
-            var index = 1;
-            while (index < allSeatIds.Count)
-            {
-                var difference = allSeatIds[index] - currentSeatId;
-                if (difference > 1)
-                {
-                    return currentSeatId + 1;
-                }
-                currentSeatId = allSeatIds[index];
-                index++;
-            }
-
-            return 666;
+            var zipped = allSeatIds.Zip(Enumerable.Range(allSeatIds[0], allSeatIds.Count));
+            return zipped.FirstOrDefault(x => x.First != x.Second).Second;
         }
 
         private static int GetSeatId(string inputString)

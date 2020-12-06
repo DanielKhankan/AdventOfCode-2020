@@ -13,6 +13,7 @@ namespace AdventOfCode {
            Console.WriteLine($"Day3: A[{Day3.Day3A() == 171}]\tB[{Day3.Day3B() == 1206576000}]");
            Console.WriteLine($"Day4: A[{Day4.Day4A() == 170}]\tB[{Day4.Day4B() == 103}]");
            Console.WriteLine($"Day5: A[{Day5.Day5A() == 994}]\tB[{Day5.Day5B() == 741}]");
+           Console.WriteLine($"Day6: A[{Day6.Day6A() == Day6.Day6A2() && Day6.Day6A2() == 6585}]\tB[{Day6.Day6B() == Day6.Day6B2() && Day6.Day6B2() == 3276}]");
         }
     }
 }

@@ -11,28 +11,26 @@ namespace AdventOfCode
         {
             var list = new List<HashSet<char>>();
 
-            using (var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt"))) {
+            using var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt"));
+            var hashset = new HashSet<char>();
 
-                var hashset = new HashSet<char>();
+            string line;
+            while ((line = streamReader.ReadLine()) != null) {
 
-                string line;
-                while ((line = streamReader.ReadLine()) != null) {
-
-                    if (string.IsNullOrEmpty(line))
+                if (string.IsNullOrEmpty(line))
+                {
+                    list.Add(hashset);
+                    hashset = new HashSet<char>();
+                }
+                else
+                {
+                    foreach (var c in line.Trim())
                     {
-                        list.Add(hashset);
-                        hashset = new HashSet<char>();
-                    }
-                    else
-                    {
-                        foreach (var c in line.Trim())
-                        {
-                            hashset.Add(c);
-                        }
+                        hashset.Add(c);
                     }
                 }
-                list.Add(hashset);
             }
+            list.Add(hashset);
 
             return list.Select(x=> x.Count).Sum();
         }
@@ -41,7 +39,7 @@ namespace AdventOfCode
         internal static int Day6A2()
         {
             return File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day6.txt"))
-                .Chunk(x => string.IsNullOrEmpty(x))
+                .Chunk(string.IsNullOrEmpty)
                 .Select(x => x.SelectMany(s => s.AsEnumerable()).Distinct().Count())
                 .Sum();
         }
@@ -50,10 +48,10 @@ namespace AdventOfCode
         internal static int Day6B2()
         {
             var foo = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day6.txt"))
-                .Chunk(x => string.IsNullOrEmpty(x))
+                .Chunk(string.IsNullOrEmpty)
                 .Select(x => x.SelectMany(s => s.AsEnumerable().Distinct()).ToLookup(c => c, c => x.All(list => list.Contains(c))));
 
-            return foo.SelectMany(lookup => lookup.Where(grouping => grouping.First() == true).Select(grouping => lookup)).Count();
+            return foo.SelectMany(lookup => lookup.Where(grouping => grouping.First()).Select(grouping => lookup)).Count();
         }
 
         internal static int Day6B()
@@ -70,7 +68,7 @@ namespace AdventOfCode
                 {
                     if (string.IsNullOrEmpty(line))
                     {
-                        list.Add(countDictionary.Values.Where(x => x == groupMembers).Count());
+                        list.Add(countDictionary.Values.Count(x => x == groupMembers));
                         countDictionary = new Dictionary<char, int>();
                         groupMembers = 0;
                     }
@@ -88,7 +86,7 @@ namespace AdventOfCode
                         }
                     }
                 }
-                list.Add(countDictionary.Values.Where(x => x == groupMembers).Count());
+                list.Add(countDictionary.Values.Count(x => x == groupMembers));
             }
 
             return list.Sum();

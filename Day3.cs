@@ -7,18 +7,15 @@ namespace AdventOfCode {
     internal static class Day3 {
 
         // 171
-        internal static int Day3A()
-        {
+        internal static int Day3A() {
             var playground = Day3Parse();
 
             var counter = 0;
             var x = 0;
             var y = 0;
 
-            while (y < playground.yDimension)
-            {
-                if (playground.field[x, y])
-                {
+            while (y < playground.yDimension) {
+                if (playground.field[x, y]) {
                     counter++;
                 }
 
@@ -32,8 +29,7 @@ namespace AdventOfCode {
         }
 
         // 1206576000
-        internal static int Day3B()
-        {
+        internal static int Day3B() {
             var playground = Day3Parse();
             var counters = new List<int>
             {
@@ -44,14 +40,12 @@ namespace AdventOfCode {
                 Traverse(playground, x => x + 1, y => y + 2).Count(coord => playground.field[coord.x, coord.y])
             };
 
-            var result = counters.Aggregate(1, (x, y) => x*y);
+            var result = counters.Aggregate(1, (x, y) => x * y);
 
-            static IEnumerable<(int x, int y)> Traverse((bool[,] field, int xDimension, int yDimension) valueTuple, Func<int, int> xIncrease, Func<int, int> yIncrease)
-            {
+            static IEnumerable<(int x, int y)> Traverse((bool[,] field, int xDimension, int yDimension) valueTuple, Func<int, int> xIncrease, Func<int, int> yIncrease) {
                 var x = 0;
                 var y = 0;
-                while (y < valueTuple.yDimension)
-                {
+                while (y < valueTuple.yDimension) {
                     yield return (x, y);
 
                     x = xIncrease(x);
@@ -64,21 +58,18 @@ namespace AdventOfCode {
             return result;
         }
 
-        private static (bool[,] field, int xDimension, int yDimension) Day3Parse()
-        {
+        private static (bool[,] field, int xDimension, int yDimension) Day3Parse() {
             var lines = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day3.txt"));
 
             int xDimension = lines[0].Length;
             int yDimension = lines.Length;
 
-            var result = new bool[xDimension,yDimension];
+            var result = new bool[xDimension, yDimension];
 
             var y = 0;
-            foreach (var line in lines)
-            {
+            foreach (var line in lines) {
                 var x = 0;
-                foreach (var c in line)
-                {
+                foreach (var c in line) {
                     result[x, y] = c == '#';
                     x++;
                 }

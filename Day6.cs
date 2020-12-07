@@ -5,10 +5,9 @@ using System;
 
 namespace AdventOfCode
 {
-    internal static class Day6
-    {
-        internal static int Day6A()
-        {
+    internal static class Day6 {
+
+        internal static int Day6A() {
             var list = new List<HashSet<char>>();
 
             using var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt"));
@@ -58,42 +57,40 @@ namespace AdventOfCode
         {
             var list = new List<int>();
 
-            using (var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt")))
-            {
-                var countDictionary = new Dictionary<char, int>();
+            using var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt"));
+            var countDictionary = new Dictionary<char, int>();
 
-                string line;
-                int groupMembers = 0;
-                while ((line = streamReader.ReadLine()) != null)
+            string line;
+            int groupMembers = 0;
+            while ((line = streamReader.ReadLine()) != null)
+            {
+                if (string.IsNullOrEmpty(line))
                 {
-                    if (string.IsNullOrEmpty(line))
+                    list.Add(countDictionary.Values.Count(x => x == groupMembers));
+                    countDictionary = new Dictionary<char, int>();
+                    groupMembers = 0;
+                }
+                else
+                {
+                    groupMembers++;
+                    foreach (var c in line.Trim())
                     {
-                        list.Add(countDictionary.Values.Count(x => x == groupMembers));
-                        countDictionary = new Dictionary<char, int>();
-                        groupMembers = 0;
-                    }
-                    else
-                    {
-                        groupMembers++;
-                        foreach (var c in line.Trim())
-                        {
-                            if (countDictionary.ContainsKey(c)) {
-                                countDictionary[c] = countDictionary[c] + 1;
-                            }
-                            else {
-                                countDictionary.Add(c, 1);
-                            }
+                        if (countDictionary.ContainsKey(c)) {
+                            countDictionary[c] = countDictionary[c] + 1;
+                        }
+                        else {
+                            countDictionary.Add(c, 1);
                         }
                     }
                 }
-                list.Add(countDictionary.Values.Count(x => x == groupMembers));
             }
+            list.Add(countDictionary.Values.Count(x => x == groupMembers));
 
             return list.Sum();
         }
         
 
-        internal static IEnumerable<ICollection<T>> Chunk<T>(this IEnumerable<T> source, Predicate<T> predicate)
+        private static IEnumerable<ICollection<T>> Chunk<T>(this IEnumerable<T> source, Predicate<T> predicate)
         {
             var chunk = new List<T>();
             foreach (var enumerable in source)

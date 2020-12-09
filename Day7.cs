@@ -60,7 +60,7 @@ namespace AdventOfCode {
             var split = ruleInput.Split("contain");
             var ruleName = split[0].Trim();
             var rules = split[1].Trim();
-            rules = rules.Substring(0, rules.Length - 1);
+            rules = rules[..^1];
 
             var list = new List<string>();
             if (rules == "no other bags") {

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day08
+    public class Day08 : AdventOfCodeBase
     {
+        public Day08(string fileName) : base(fileName) { }
+
         private const string Nop = "nop";
         private const string Acc = "acc";
         private const string Jmp = "jmp";
@@ -16,9 +17,9 @@ namespace AdventOfCode {
             public int InstructionPointer { get; set; }
         }
 
-        internal static int Day8A()
+        public long A()
         {
-            var program = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day8.txt"))
+            var program = Input
                 .Select(Parse)
                 .ToList();
 
@@ -45,9 +46,9 @@ namespace AdventOfCode {
             }
         }
 
-        internal static int Day8B()
+        public long B()
         {
-            var input = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day8.txt"));
+            var input = Input;
 
             foreach (var program in AllPossiblePrograms(input))
             {

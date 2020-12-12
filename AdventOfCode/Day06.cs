@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System;
 
 namespace AdventOfCode
 {
-    internal static class Day06 {
+    public class Day06 : AdventOfCodeBase {
+        public Day06(string fileName) : base(fileName) { }
 
-        internal static int Day6A() {
+        public long A() {
             var list = new List<HashSet<char>>();
 
-            using var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt"));
+            using var streamReader = new StreamReader(FileName);
             var hashset = new HashSet<char>();
 
             string line;
@@ -35,29 +35,29 @@ namespace AdventOfCode
         }
 
         // functional style
-        internal static int Day6A2()
+        public long A2()
         {
-            return File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day6.txt"))
+            return Input
                 .Chunk(string.IsNullOrEmpty)
                 .Select(x => x.SelectMany(s => s.AsEnumerable()).Distinct().Count())
                 .Sum();
         }
 
         // functional style
-        internal static int Day6B2()
+        public long B2()
         {
-            var foo = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day6.txt"))
+            var foo = Input
                 .Chunk(string.IsNullOrEmpty)
                 .Select(x => x.SelectMany(s => s.AsEnumerable().Distinct()).ToLookup(c => c, c => x.All(list => list.Contains(c))));
 
             return foo.SelectMany(lookup => lookup.Where(grouping => grouping.First()).Select(grouping => lookup)).Count();
         }
 
-        internal static int Day6B()
+        public long B()
         {
             var list = new List<int>();
 
-            using var streamReader = new StreamReader(Path.Combine(Program.InputsFolder, "Day6.txt"));
+            using var streamReader = new StreamReader(FileName);
             var countDictionary = new Dictionary<char, int>();
 
             string line;
@@ -90,22 +90,6 @@ namespace AdventOfCode
         }
         
 
-        private static IEnumerable<ICollection<T>> Chunk<T>(this IEnumerable<T> source, Predicate<T> predicate)
-        {
-            var chunk = new List<T>();
-            foreach (var enumerable in source)
-            {
-                if (!predicate(enumerable))
-                {
-                    chunk.Add(enumerable);
-                }
-                else
-                {
-                    yield return chunk;
-                    chunk = new List<T>();
-                }
-            }
-            yield return chunk;
-        }
+        
     }
 }

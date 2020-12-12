@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day11 {
+    public class Day11 : AdventOfCodeBase {
+        public Day11(string fileName) : base(fileName) { }
+
         private class Cell<T> where T : struct
         {
             public T Value { get; set; }
@@ -130,9 +131,9 @@ namespace AdventOfCode {
             }
         }
 
-        internal static int Day11B()
+        public long B()
         {
-            var input = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day11.txt"));
+            var input = Input;
 
             var xDimension = input.First().Length;
             var yDimension = input.Length;
@@ -198,9 +199,9 @@ namespace AdventOfCode {
             return counter;
         }
 
-        internal static int Day11A()
+        public long A()
         {
-            var input = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day11.txt"));
+            var input = Input;
 
             var xDimension = input.First().Length;
             var yDimension = input.Length;

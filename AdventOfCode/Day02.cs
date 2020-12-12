@@ -1,13 +1,12 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day02 {
+    public class Day02 : AdventOfCodeBase {
+        public Day02(string fileName) : base(fileName) { }
 
         // 666
-        internal static int Day2A() {
-            return File
-                .ReadAllLines(Path.Combine(Program.InputsFolder, "Day2.txt"))
+        public long A() {
+            return Input
                 .Select(Day2ParseLine)
                 .Count(x => {
                     var (lowerLimit, upperLimit, character, passwordString) = x;
@@ -17,9 +16,8 @@ namespace AdventOfCode {
         }
 
         // 670
-        internal static int Day2B() {
-            return File
-                .ReadAllLines(Path.Combine(Program.InputsFolder, "Day2.txt"))
+        public long B() {
+            return Input
                 .Select(Day2ParseLine)
                 .Count(x => {
                     var (lowerLimit, upperLimit, character, passwordString) = x;

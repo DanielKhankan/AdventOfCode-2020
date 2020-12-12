@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode {
-    internal static class Day04 {
+    public class Day04 : AdventOfCodeBase {
+        public Day04(string fileName) : base(fileName) { }
+
         // 170
-        internal static int Day4A() {
+        public long A() {
             var requiredFields = new List<string> { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" };
 
             var passports = Day4Parse();
@@ -16,7 +17,7 @@ namespace AdventOfCode {
         }
 
         // 103
-        internal static int Day4B() {
+        public long B() {
             var requiredFields = new List<(string, Predicate<string>)>
             {
                 ("byr", x => MinMaxString(x, 1920,2002)),
@@ -45,8 +46,9 @@ namespace AdventOfCode {
             return counter;
         }
 
-        private static IEnumerable<Dictionary<string, string>> Day4Parse() {
-            var wholeFile = File.ReadAllText(Path.Combine(Program.InputsFolder, "Day4.txt"));
+        private IEnumerable<Dictionary<string, string>> Day4Parse()
+        {
+            var wholeFile = WholeFile;
 
             var passports = wholeFile.Split("\r\n\r\n");
 

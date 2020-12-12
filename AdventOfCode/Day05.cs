@@ -1,17 +1,19 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day05 {
-        internal static int Day5A() {
-            var wholeFile = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day5.txt"));
+    public class Day05 : AdventOfCodeBase {
+        public Day05(string fileName) : base(fileName) { }
+
+        public long A()
+        {
+            var wholeFile = Input;
 
             return wholeFile.Max(GetSeatId);
         }
 
-        internal static int Day5B() {
-            var allSeatIds = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day5.txt")).Select(GetSeatId).ToList();
+        public long B() {
+            var allSeatIds = Input.Select(GetSeatId).ToList();
             allSeatIds.Sort();
 
             var zipped = allSeatIds.Zip(Enumerable.Range(allSeatIds[0], allSeatIds.Count));

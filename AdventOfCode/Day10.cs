@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day10 {
+    public class Day10 : AdventOfCodeBase {
+        public Day10(string fileName) : base(fileName) { }
+
         // 2176
-        internal static int Day10A()
+        public long A()
         {
-            var allNumbers = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day10.txt")).Select(int.Parse).ToList();
+            var allNumbers = Input.Select(int.Parse).ToList();
 
             if (!allNumbers.Contains(0))
             {
@@ -33,9 +34,9 @@ namespace AdventOfCode {
         }
 
         // 18512297918464
-        internal static long Day10B()
+        public long B()
         {
-            var allNumbers = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day10.txt")).Select(int.Parse).ToList();
+            var allNumbers = Input.Select(int.Parse).ToList();
             if (!allNumbers.Contains(0))
             {
                 allNumbers.Add(0);

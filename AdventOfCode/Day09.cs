@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day09 {
+    public class Day09 : AdventOfCodeBase {
 
-        internal static long Day9A()
+        public Day09(string fileName) : base(fileName) { }
+
+        public long A()
         {
             const int preambleLength = 25;
-            var allNumbers = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day9.txt")).Select(long.Parse).ToList();
+            var allNumbers = Input.Select(long.Parse).ToList();
 
             var counter = 0;
             foreach (var number in allNumbers.Skip(preambleLength))
@@ -27,11 +27,11 @@ namespace AdventOfCode {
             return 0;
         }
 
-        internal static long Day9B()
+        public long B()
         {
             const long sumToFind = 70639851;
 
-            var allNumbers = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day9.txt")).Select(long.Parse).Where( x=> x != sumToFind).ToList();
+            var allNumbers = Input.Select(long.Parse).Where( x=> x != sumToFind).ToList();
 
             var startIndex = 0;
             foreach (var _ in allNumbers)
@@ -54,19 +54,6 @@ namespace AdventOfCode {
             }
 
             return 0;
-        }
-
-        private static IEnumerable<(T1, T2)> Cartesian<T1, T2>(this IEnumerable<T1> list1, IEnumerable<T2> list2)
-        {
-            var list2Cached = list2.ToList();
-
-            foreach (var item1 in list1)
-            {
-                foreach (var item2 in list2Cached)
-                {
-                    yield return (item1, item2);
-                }
-            }
         }
     }
 }

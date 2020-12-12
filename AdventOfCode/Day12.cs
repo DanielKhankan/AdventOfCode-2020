@@ -1,15 +1,16 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day12 {
+    public class Day12 : AdventOfCodeBase {
+        public Day12(string fileName) : base(fileName) { }
+
         private struct Vector2
         {
-            public double X;
-            public double Y;
+            readonly int X;
+            readonly int Y;
 
-            public Vector2(double x, double y)
+            public Vector2(int x, int y)
             {
                 (X, Y) = (x, y);
             }
@@ -20,7 +21,7 @@ namespace AdventOfCode {
 
             public Vector2 Rotate90() => new Vector2(-Y, X);
 
-            public double Length => Math.Abs(X) + Math.Abs(Y);
+            public int Length => Math.Abs(X) + Math.Abs(Y);
         }
 
         private class Turtle
@@ -43,9 +44,9 @@ namespace AdventOfCode {
             }
         }
 
-        internal static int Day12A()
+        public long A()
         {
-            var input = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day12.txt")).Select(Parse);
+            var input = Input.Select(Parse);
 
             var turtle = new Turtle {
                 Heading = new Vector2(0, 1)
@@ -56,17 +57,8 @@ namespace AdventOfCode {
                 action(turtle);
             }
 
-            return (int)turtle.Position.Length;
+            return turtle.Position.Length;
         }
-        /*
-         * Action N means to move north by the given value.
-Action S means to move south by the given value.
-Action E means to move east by the given value.
-Action W means to move west by the given value.
-Action L means to turn left the given number of degrees.
-Action R means to turn right the given number of degrees.
-Action F means to move forward by the given value in the direction the ship is currently facing.
-         */
 
         private static Action<Turtle> Parse(string input)
         {
@@ -103,25 +95,17 @@ Action F means to move forward by the given value in the direction the ship is c
                 'S' => x => x.Heading = x.Heading.Add(new Vector2(-argument, 0)),
                 'E' => x => x.Heading = x.Heading.Add(new Vector2(0, argument)),
                 'W' => x => x.Heading = x.Heading.Add(new Vector2( 0, -argument)),
-                'R' => x =>
-                {
-                //    x.Heading = x.Heading.Add(x.Position.Scale(-1));
-                    x.Rotate(argument);
-                 //   x.Heading = x.Heading.Add(x.Position);
-                },
+                'R' => x => x.Rotate(argument),
                 'L' => x => x.Rotate(360 - argument),
-                'F' => x =>
-                {
-                    x.Position = x.Position.Add(x.Heading.Scale(argument));
-                },
+                'F' => x => x.Position = x.Position.Add(x.Heading.Scale(argument)),
                 _ => action
             };
 
             return action;
         }
-        internal static int Day12B()
+        public long B()
         {
-            var input = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day12.txt")).Select(ParseB);
+            var input = Input.Select(ParseB);
 
             var turtle = new Turtle {
                 Heading = new Vector2(1, 10)
@@ -132,8 +116,7 @@ Action F means to move forward by the given value in the direction the ship is c
                 action(turtle);
             }
 
-            return (int)turtle.Position.Length;
+            return turtle.Position.Length;
         }
-
     }
 }

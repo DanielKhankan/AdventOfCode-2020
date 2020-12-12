@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day07 {
+    public class Day07 : AdventOfCodeBase {
+        public Day07(string fileName) : base(fileName) { }
 
-        internal static int Day7A() {
-            var rules = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day7.txt"))
+
+        public long A() {
+            var rules = Input
                 .Select(ParseRule)
                 .ToDictionary(x => x.rule, x => x.functions);
 
@@ -31,8 +32,8 @@ namespace AdventOfCode {
             }
         }
 
-        internal static int Day7B() {
-            var rules = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day7.txt"))
+        public long B() {
+            var rules = Input
                 .Select(ParseRule)
                 .ToDictionary(x => x.rule, x => x.functions);
 

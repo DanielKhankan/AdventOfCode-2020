@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day03 {
+    public class Day03 : AdventOfCodeBase {
+
+        public Day03(string fileName) : base(fileName) { }
 
         // 171
-        internal static int Day3A() {
+        public long A() {
             var playground = Day3Parse();
 
             var counter = 0;
@@ -29,7 +30,7 @@ namespace AdventOfCode {
         }
 
         // 1206576000
-        internal static int Day3B() {
+        public long B() {
             var playground = Day3Parse();
             var counters = new List<int>
             {
@@ -58,8 +59,8 @@ namespace AdventOfCode {
             return result;
         }
 
-        private static (bool[,] field, int xDimension, int yDimension) Day3Parse() {
-            var lines = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day3.txt"));
+        private (bool[,] field, int xDimension, int yDimension) Day3Parse() {
+            var lines = Input;
 
             int xDimension = lines[0].Length;
             int yDimension = lines.Length;

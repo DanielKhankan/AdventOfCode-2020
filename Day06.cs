@@ -5,7 +5,7 @@ using System;
 
 namespace AdventOfCode
 {
-    internal static class Day6 {
+    internal static class Day06 {
 
         internal static int Day6A() {
             var list = new List<HashSet<char>>();

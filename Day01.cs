@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AdventOfCode {
 
-    internal static class Day1 {
+    internal static class Day01 {
         // 303394260
         internal static int Day1B()
         {

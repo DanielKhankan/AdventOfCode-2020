@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day8
+    internal static class Day08
     {
         private const string Nop = "nop";
         private const string Acc = "acc";

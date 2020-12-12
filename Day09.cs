@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day9 {
+    internal static class Day09 {
 
         internal static long Day9A()
         {

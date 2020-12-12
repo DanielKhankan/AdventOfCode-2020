@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day2 {
+    internal static class Day02 {
 
         // 666
         internal static int Day2A() {

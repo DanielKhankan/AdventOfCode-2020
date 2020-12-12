@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 
 namespace AdventOfCode {
-    internal static class Day5 {
+    internal static class Day05 {
         internal static int Day5A() {
             var wholeFile = File.ReadAllLines(Path.Combine(Program.InputsFolder, "Day5.txt"));
 

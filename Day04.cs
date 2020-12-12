@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace AdventOfCode {
-    internal static class Day4 {
+    internal static class Day04 {
         // 170
         internal static int Day4A() {
             var requiredFields = new List<string> { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" };

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace AdventOfCode
 {
     public class Day14 : AdventOfCodeBase
     {
+        private const char FloatingBit = 'X';
+        private const char ZeroBit = '0';
+        private const char OneBit = '1';
         public Day14(string fileName) : base(fileName) { }
 
         public long A()
         {
             var memory = new Dictionary<long, long>();
-
 
             var bitMask = string.Empty;
             foreach (var line in Input) {
@@ -23,12 +24,12 @@ namespace AdventOfCode
                 }
                 else
                 {
-                    var (adress, number) = Parse(line);
+                    var (address, number) = Parse(line);
 
-                    var binarynumber = Convert.ToString(number, 2);
-                    binarynumber = binarynumber.PadLeft(36).Replace(" ", "0");
+                    var binaryNumber = Convert.ToString(number, 2);
+                    binaryNumber = binaryNumber.PadLeft(36).Replace(" ", "0");
 
-                    memory[adress] = ApplyMask(bitMask, binarynumber);
+                    memory[address] = ApplyMask(bitMask, binaryNumber);
                 }
             }
 
@@ -39,34 +40,32 @@ namespace AdventOfCode
         {
             var memory = new Dictionary<long, long>();
 
-
             var bitMask = string.Empty;
             foreach (var line in Input)
             {
-
                 if (line.StartsWith("mask"))
                 {
                     bitMask = line.Split("=")[1].Trim();
                 }
                 else
                 {
-                    var (adress, number) = Parse(line);
+                    var (address, number) = Parse(line);
 
-                    var binaryadress = Convert.ToString(adress, 2);
-                    binaryadress = binaryadress.PadLeft(36).Replace(" ", "0");
+                    var binaryAddress = Convert.ToString(address, 2);
+                    binaryAddress = binaryAddress.PadLeft(36).Replace(" ", "0");
 
-                    var array = binaryadress.ToCharArray();
-                    for (var i = 0; i < binaryadress.Length; i++)
+                    var array = binaryAddress.ToCharArray();
+                    for (var i = 0; i < binaryAddress.Length; i++)
                     {
-                        if (bitMask[i] != '0')
+                        if (bitMask[i] != ZeroBit)
                         {
                             array[i] = bitMask[i];
                         }
                     }
 
-                    var adresses = ApplyMask2(bitMask, new string(array));
+                    var addresses = ApplyMask2(bitMask, new string(array));
 
-                    foreach (var a in adresses)
+                    foreach (var a in addresses)
                     {
                         memory[a] = number;
                     }
@@ -76,32 +75,24 @@ namespace AdventOfCode
             return memory.Values.Sum();
         }
 
-        private List<long> ApplyMask2(string bitMask, string binaryNumber)
+        private static IEnumerable<long> ApplyMask2(string bitMask, string binaryNumber)
         {
             var array = binaryNumber.ToCharArray();
 
             var list = new List<long>();
 
-            //for (var i = 0; i < binaryNumber.Length; i++)
-            //{
-            //    if (bitMask[i] != '0')
-            //    {
-            //        array[i] = bitMask[i];
-            //    }
-            //}
-
-            var firstIndex = array.Count(x => x == 'X');
+            var firstIndex = array.Count(x => x == FloatingBit);
             if (firstIndex > 0)
             {
                 var array2 = new char[array.Length];
                 Array.Copy(array, array2, array.Length);
 
-                for (int i = 0; i < array.Length; i++)
+                for (var i = 0; i < array.Length; i++)
                 {
-                    if (array[i] == 'X')
+                    if (array[i] == FloatingBit)
                     {
-                        array[i] = '0';
-                        array2[i] = '1';
+                        array[i] = ZeroBit;
+                        array2[i] = OneBit;
                         break;
                     }
                 }
@@ -117,28 +108,27 @@ namespace AdventOfCode
             return list;
         }
 
-        private long ApplyMask(string bitMask, string binaryNumber)
+        private static long ApplyMask(string bitMask, string binaryNumber)
         {
             var array = binaryNumber.ToCharArray();
             for (var i = 0; i< binaryNumber.Length; i++)
             {
-                if (bitMask[i] != 'X')
+                if (bitMask[i] != FloatingBit)
                 {
                     array[i] = bitMask[i];
                 }
             }
-
            
             return Convert.ToInt64(new string(array), 2);
         }
 
-        private (long adress, long number) Parse(string s)
+        private static (long adress, long number) Parse(string s)
         {
             var split = s.Split("=");
-            var adress = int.Parse(split[0].Replace("mem[", "").Replace("]", "").Trim());
+            var address = int.Parse(split[0].Replace("mem[", "").Replace("]", "").Trim());
             var number = int.Parse(split[1].Trim());
 
-            return (adress, number);
+            return (address, number);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace AdventOfCode {
 
         private class Cell<T> where T : struct
         {
-            public T Value { get; set; }
+            public T Value { get; }
 
-            public List<(int i, int j)> AdjacentCells { get; private set; }
+            public List<(int i, int j)> AdjacentCells { get; }
 
             public Cell(T value, IEnumerable<(int i, int j)> adjacentIndices)
             {
@@ -70,13 +70,13 @@ namespace AdventOfCode {
                 var adjacentIndices = new List<(int i, int j)>();
 
                 AddIfExists(i - 1, j + 1, x => adjacentIndices.Add(x));
-                AddIfExists(i - 1  , j , x => adjacentIndices.Add(x));
-                AddIfExists(i - 1, j -1, x => adjacentIndices.Add(x));
-                AddIfExists(i   , j - 1, x => adjacentIndices.Add(x));
-                AddIfExists(i ,  j + 1, x => adjacentIndices.Add(x));
-                AddIfExists(i + 1, j -1, x => adjacentIndices.Add(x));
-                AddIfExists(i + 1, j , x => adjacentIndices.Add(x));
-                AddIfExists(i + 1, j +1, x => adjacentIndices.Add(x));
+                AddIfExists(i - 1, j, x => adjacentIndices.Add(x));
+                AddIfExists(i - 1, j - 1, x => adjacentIndices.Add(x));
+                AddIfExists(i, j - 1, x => adjacentIndices.Add(x));
+                AddIfExists(i, j + 1, x => adjacentIndices.Add(x));
+                AddIfExists(i + 1, j - 1, x => adjacentIndices.Add(x));
+                AddIfExists(i + 1, j, x => adjacentIndices.Add(x));
+                AddIfExists(i + 1, j + 1, x => adjacentIndices.Add(x));
 
                 void AddIfExists(int i, int j, Action<(int i, int j)> action)
                 {
@@ -143,60 +143,48 @@ namespace AdventOfCode {
             var changedCells = 0;
 
             var positionVectors = new (int i, int j)[] {(-1, 0), (-1, -1), ( -1, 1), ( 0, -1), (0, 1), (1, -1), (1, 0), (1, 1)};
-            var iteration = 0;
+
             do
             {
                 changedCells = 0;
                 playground.Iteration2((cell, i, j) =>
                 {
-                        //System.Console.WriteLine($"Iteration {iteration++} changed: {changedCells}");
                         var counter = 0;
 
-                        foreach (var vector in positionVectors)
+                        foreach (var (x, y) in positionVectors)
                         {
-                            var position = (vector.i + i, vector.j + j);
+                            var position = (x + i, y + j);
                             bool notFound = false;
                             while (!notFound && playground.CellExists(position.Item1, position.Item2))
                             {
-                                if (playground[position.Item1, position.Item2] == 'L')
-                                {
-                                    notFound = true;
+                                switch (playground[position.Item1, position.Item2]) {
+                                    case 'L':
+                                        notFound = true;
+                                        break;
+                                    case '#':
+                                        counter++;
+                                        notFound = true;
+                                        break;
                                 }
-                                else if (playground[position.Item1, position.Item2] == '#')
-                                {
-                                    counter++;
-                                    notFound = true;
-                                }
-                                position = (position.Item1 + vector.i, position.Item2 + vector.j);
+                            position = (position.Item1 + x, position.Item2 + y);
                             }
                         }
 
-                        if (cell.Value == 'L' && counter == 0)
-                        {
-                            changedCells++;
-                            return '#';
-                        }
-                        if (cell.Value == '#' && counter > 4)
-                        {
-                            changedCells++;
-                            return 'L';
-                        }
-
-                        return cell.Value;
-                    });
+                        switch (cell.Value) {
+                            case 'L' when counter == 0:
+                                changedCells++;
+                                return '#';
+                            case '#' when counter > 4:
+                                changedCells++;
+                                return 'L';
+                            default:
+                                return cell.Value;
+                    }
+                });
             } while (changedCells > 0);
 
-            var counter = 0;
-            foreach (var value in playground.Values())
-            {
-                if (value == '#')
-                {
-                    counter++;
-                }
-            }
 
-
-            return counter;
+            return (playground.Values().Where(value => value == '#')).Count();
         }
 
         public long A()

@@ -31,7 +31,7 @@ namespace AdventOfCodeTests
             Assert.Equal(3966, result);
         }
 
-        [Fact(Skip = "not implemented correctly")]
+        [Fact]
         public void Day13_B_ExampleSuccess()
         {
             // Arrange
@@ -44,7 +44,8 @@ namespace AdventOfCodeTests
             Assert.Equal(1068781, result);
         }
 
-        [Fact(Skip = "not implemented correctly")]
+       // [Fact(Skip = "not implemented correctly")]
+        [Fact]
         public void Day13_B_Example2Success()
         {
             // Arrange
@@ -57,7 +58,20 @@ namespace AdventOfCodeTests
             Assert.Equal(1202161486, result);
         }
 
-        [Fact(Skip = "not implemented correctly")]
+        [Fact]
+        public void Day13_B_Example23232Success()
+        {
+            // Arrange
+            var day13 = new Day13();
+
+            // Act
+            var result = day13.B("7,5,3");
+
+            // Assert
+            Assert.Equal(49, result);
+        }
+
+        [Fact]
         public void Day13_B_Success()
         {
             // Arrange
@@ -67,7 +81,7 @@ namespace AdventOfCodeTests
             var result = day13.B("13,x,x,41,x,x,x,x,x,x,x,x,x,641,x,x,x,x,x,x,x,x,x,x,x,19,x,x,x,x,17,x,x,x,x,x,x,x,x,x,x,x,29,x,661,x,x,x,x,x,37,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,x,23 ");
 
             // Assert
-            Assert.Equal(1202161486, result);
+            Assert.Equal(800177252346225, result);
         }
     }
 }

@@ -49,16 +49,18 @@ namespace AdventOfCode {
         private IEnumerable<Dictionary<string, string>> Day4Parse()
         {
             var wholeFile = WholeFile;
-
-            var passports = wholeFile.Split("\r\n\r\n");
-
+            wholeFile = wholeFile.Replace("\r\n", "\n").Replace("\r", "\n");
+            string[] passports = wholeFile.Split("\n\n");
+    
             foreach (var passport in passports) {
                 var nameValueCollection = new Dictionary<string, string>();
-                foreach (var field in passport.Split(new char[] { ' ', '\r' })) {
-                    var fieldNameValue = field.Split(":");
-                    nameValueCollection.Add(fieldNameValue[0].Trim(), fieldNameValue[1].Trim());
+                // Split on both space and newline
+                foreach (var field in passport.Split(new[] { ' ', '\n' }, StringSplitOptions.RemoveEmptyEntries)) {
+                    var fieldNameValue = field.Split(':');
+                    if (fieldNameValue.Length == 2) {  // Add safety check
+                        nameValueCollection[fieldNameValue[0].Trim()] = fieldNameValue[1].Trim();
+                    }
                 }
-
                 yield return nameValueCollection;
             }
         }
